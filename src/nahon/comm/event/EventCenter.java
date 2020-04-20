@@ -108,12 +108,12 @@ public class EventCenter<E> {
             }
         }
 
-        this.listeners.forEach((tmp) -> {
+        for(EventListener tmp : this.listeners){
             try {
                 tmp.recevieEvent(event);
             } catch (Exception ex) {
                 Logger.getGlobal().log(Level.SEVERE, ex.getMessage());
             }
-        });
+        };
     }
 }
