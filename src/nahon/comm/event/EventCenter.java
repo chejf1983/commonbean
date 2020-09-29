@@ -19,7 +19,7 @@ import java.util.logging.Logger;
 public class EventCenter<E> {
 
     private final ArrayList<EventListener> listeners = new ArrayList<>();
-    private ExecutorService process;
+//    private ExecutorService process;
     private final Lock elock = new ReentrantLock();
 
     public int GetListenersNum() {
@@ -69,16 +69,16 @@ public class EventCenter<E> {
     }
 
     public void CreateEventAsync(E eventType, Object eventInfo) {
-        elock.lock();
-        try {
-            if (this.process == null) {
-                process = Executors.newSingleThreadExecutor();
-            }
-        } finally {
-            elock.unlock();
-        }
+//        elock.lock();
+//        try {
+//            if (this.process == null) {
+//                process = Executors.newSingleThreadExecutor();
+//            }
+//        } finally {
+//            elock.unlock();
+//        }
 
-        process.submit(new AsyncEvent(new Event(eventType, eventInfo)));
+        new Thread((new AsyncEvent(new Event(eventType, eventInfo)))).start();
     }
 
     private class AsyncEvent implements Runnable {
