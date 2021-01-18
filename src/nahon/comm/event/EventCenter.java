@@ -5,12 +5,11 @@
 package nahon.comm.event;
 
 import java.util.ArrayList;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import nahon.comm.faultsystem.LogCenter;
 
 /**
  *
@@ -30,6 +29,9 @@ public class EventCenter<E> {
     public void RegeditListener(EventListener<E> list) {
         if (list != null) {
             this.listeners.add(list);
+            if(this.listeners.size() > 10){
+                LogCenter.Instance().PrintLog(Level.SEVERE, "监听人数超过10个:" + listeners.size());
+            }
         }
     }
 
@@ -99,13 +101,6 @@ public class EventCenter<E> {
     private synchronized void sendEvent(Event<E> event) {
         while (listeners.contains(null)) {
             listeners.remove(null);
-        }
-
-        for (EventListener tmp : this.listeners) {
-            if (!tmp.IsEnable()) {
-                this.listeners.remove(tmp);
-                break;
-            }
         }
 
         for(EventListener tmp : this.listeners){

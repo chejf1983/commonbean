@@ -12,8 +12,8 @@ package nahon.comm.exl2;
 public class XlsConfig {
 
     public static String Table_Split = ":";
-    public static int MaxExcelLen = 60000;//最大长度
-    public static int MaxExcelWidth = 10000;//最大宽度
+    public static int MaxExcelLen = 10000;//最大长度
+    public static int MaxExcelWidth = 50;//最大宽度
     public static int def_column = 1;//起始列
     public static int def_row = 1;//起始行
     public static int min_row_inc = 1;

@@ -8,10 +8,6 @@ package nahon.comm.event;
  *
  * @author jiche
  */
-public abstract class EventListener<E> {
+public interface EventListener<E> {
     public abstract void recevieEvent(Event<E> event);
-    
-    public boolean IsEnable(){
-        return true;
-    }
 }
