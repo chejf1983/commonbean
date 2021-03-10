@@ -5,9 +5,9 @@
  */
 package nahon.comm.un.other;
 
-import nahon.comm.event.EventListener;
-import nahon.comm.event.EventCenter;
+import nahon.comm.event.NEventCenter;
 import java.util.HashMap;
+import nahon.comm.event.NEventListener;
 
 /**
  *
@@ -16,7 +16,7 @@ import java.util.HashMap;
  */
 public class StateMachine<T> {
 
-    private EventCenter<T> StateChange = new EventCenter();
+    private NEventCenter<T> StateChange = new NEventCenter();
     private T CurrentState;
     private final HashMap<T, T[]> policy = new HashMap();
 
@@ -59,7 +59,7 @@ public class StateMachine<T> {
         this.policy.put(state, nextState);
     }
     
-    public void RegisterStateChangeListener(EventListener<T> list){
+    public void RegisterStateChangeListener(NEventListener<T> list){
         this.StateChange.RegeditListener(list);
     }
     
@@ -67,7 +67,7 @@ public class StateMachine<T> {
         this.StateChange.RemoveAllListenner();
     }
     
-    public void RemoveChangeListener(EventListener<T> list){
+    public void RemoveChangeListener(NEventListener<T> list){
         this.StateChange.RemoveListenner(list);
     }
 }

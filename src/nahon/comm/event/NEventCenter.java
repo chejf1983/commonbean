@@ -15,9 +15,9 @@ import nahon.comm.faultsystem.LogCenter;
  *
  * @author chejf
  */
-public class EventCenter<E> {
+public class NEventCenter<E> {
 
-    private final ArrayList<EventListener> listeners = new ArrayList<>();
+    private final ArrayList<NEventListener> listeners = new ArrayList<>();
 //    private ExecutorService process;
     private final Lock elock = new ReentrantLock();
 
@@ -26,7 +26,7 @@ public class EventCenter<E> {
     }
 
     // <editor-fold defaultstate="collapsed" desc="Listener 管理"> 
-    public void RegeditListener(EventListener<E> list) {
+    public void RegeditListener(NEventListener<E> list) {
         if (list != null) {
             this.listeners.add(list);
             if(this.listeners.size() > 10){
@@ -35,7 +35,7 @@ public class EventCenter<E> {
         }
     }
 
-    public void RemoveListenner(EventListener<E> list) {
+    public void RemoveListenner(NEventListener<E> list) {
         this.listeners.remove(list);
     }
 
@@ -48,7 +48,7 @@ public class EventCenter<E> {
     public synchronized void CreateEvent(E eventType, Object eventInfo) {
         elock.lock();
         try {
-            sendEvent(new Event(eventType, eventInfo));
+            sendEvent(new NEvent(eventType, eventInfo));
         } finally {
             elock.unlock();
         }
@@ -80,14 +80,14 @@ public class EventCenter<E> {
 //            elock.unlock();
 //        }
 
-        new Thread((new AsyncEvent(new Event(eventType, eventInfo)))).start();
+        new Thread((new AsyncEvent(new NEvent(eventType, eventInfo)))).start();
     }
 
     private class AsyncEvent implements Runnable {
 
-        Event event = null;
+        NEvent event = null;
 
-        AsyncEvent(Event event) {
+        AsyncEvent(NEvent event) {
             this.event = event;
         }
 
@@ -98,12 +98,12 @@ public class EventCenter<E> {
     }
     // </editor-fold> 
 
-    private synchronized void sendEvent(Event<E> event) {
+    private synchronized void sendEvent(NEvent<E> event) {
         while (listeners.contains(null)) {
             listeners.remove(null);
         }
 
-        for(EventListener tmp : this.listeners){
+        for(NEventListener tmp : this.listeners){
             try {
                 tmp.recevieEvent(event);
             } catch (Exception ex) {

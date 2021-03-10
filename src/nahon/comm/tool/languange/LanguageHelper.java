@@ -4,7 +4,7 @@
  */
 package nahon.comm.tool.languange;
 
-import nahon.comm.event.EventCenter;
+import nahon.comm.event.NEventCenter;
 import nahon.comm.tool.languange.LanguageNode.Language;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -16,7 +16,7 @@ import java.util.logging.Logger;
  */
 public final class LanguageHelper {
 
-    public EventCenter<Language> EventCenter = new EventCenter<>();
+    public NEventCenter<Language> EventCenter = new NEventCenter<>();
     private Language language = Language.English;
     private static String filename = "Language.xml";
     private XMLAdapter saver;

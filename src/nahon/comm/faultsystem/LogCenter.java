@@ -12,8 +12,8 @@ import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
-import nahon.comm.event.EventCenter;
-import nahon.comm.event.EventListener;
+import nahon.comm.event.NEventCenter;
+import nahon.comm.event.NEventListener;
 
 /**
  *
@@ -97,7 +97,7 @@ public class LogCenter {
     // </editor-fold>    
 
     // <editor-fold defaultstate="collapsed" desc="报错"> 
-    private final EventCenter<Level> FaultEventCenter = new EventCenter();
+    private final NEventCenter<Level> FaultEventCenter = new NEventCenter();
 
     public void SendFaultReport(Level level, String info) {
         PrintLog(level, info);
@@ -114,11 +114,11 @@ public class LogCenter {
         FaultEventCenter.CreateEvent(level, info + ex.getMessage());
     }
 
-    public void RegisterFaultEvent(EventListener<Level> list) {
+    public void RegisterFaultEvent(NEventListener<Level> list) {
         this.FaultEventCenter.RegeditListener(list);
     }
 
-    public void UnRegisterFaultEvent(EventListener<Level> list) {
+    public void UnRegisterFaultEvent(NEventListener<Level> list) {
         this.FaultEventCenter.RemoveListenner(list);
     }
 
@@ -128,7 +128,7 @@ public class LogCenter {
     // </editor-fold>        
 
     // <editor-fold defaultstate="collapsed" desc="打印LOG"> 
-    private final EventCenter<Level> MessageBoxCenter = new EventCenter();
+    private final NEventCenter<Level> MessageBoxCenter = new NEventCenter();
 
     public void PrintLog(Level level, Exception ex) {
         CheckLog();
@@ -154,11 +154,11 @@ public class LogCenter {
         MessageBoxCenter.CreateEvent(level, msg);
     }
 
-    public void RegisterLogEvent(EventListener<Level> list) {
+    public void RegisterLogEvent(NEventListener<Level> list) {
         this.MessageBoxCenter.RegeditListener(list);
     }
 
-    public void UnRegisterLogEvent(EventListener<Level> list) {
+    public void UnRegisterLogEvent(NEventListener<Level> list) {
         this.MessageBoxCenter.RemoveListenner(list);
     }
     // </editor-fold>  

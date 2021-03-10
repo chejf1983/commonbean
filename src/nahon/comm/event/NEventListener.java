@@ -8,6 +8,6 @@ package nahon.comm.event;
  *
  * @author jiche
  */
-public interface EventListener<E> {
-    public abstract void recevieEvent(Event<E> event);
+public interface NEventListener<E> {
+    public abstract void recevieEvent(NEvent<E> event);
 }

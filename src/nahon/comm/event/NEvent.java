@@ -8,17 +8,17 @@ package nahon.comm.event;
  *
  * @author jiche
  */
-public class Event<E> {
+public class NEvent<E> {
 
     private final E event;
     private final Object info;
 
-    public Event(E event, Object info) {
+    public NEvent(E event, Object info) {
         this.event = event;
         this.info = info;
     }
 
-    public Event(E event) {
+    public NEvent(E event) {
         this.event = event;
         this.info = "";
     }

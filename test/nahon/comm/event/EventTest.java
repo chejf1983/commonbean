@@ -38,12 +38,12 @@ public class EventTest {
     }
 
     /**
-     * Test of GetEvent method, of class Event.
+     * Test of GetEvent method, of class NEvent.
      */
     @Test
     public void testGetEvent() {
         System.out.println("GetEvent");
-        Event instance = null;
+        NEvent instance = null;
         Object expResult = null;
         Object result = instance.GetEvent();
         assertEquals(expResult, result);
@@ -52,12 +52,12 @@ public class EventTest {
     }
 
     /**
-     * Test of Info method, of class Event.
+     * Test of Info method, of class NEvent.
      */
     @Test
     public void testInfo() {
         System.out.println("Info");
-        Event instance = null;
+        NEvent instance = null;
         Object expResult = null;
         Object result = instance.Info();
         assertEquals(expResult, result);

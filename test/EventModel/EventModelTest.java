@@ -4,15 +4,15 @@
  */
 package EventModel;
 
-import nahon.comm.event.Event;
-import nahon.comm.event.EventCenter;
-import nahon.comm.event.EventListener;
+import nahon.comm.event.NEvent;
+import nahon.comm.event.NEventCenter;
 import org.junit.After;
 import org.junit.AfterClass;
 import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import nahon.comm.event.NEventListener;
 
 /**
  *
@@ -20,7 +20,7 @@ import org.junit.Test;
  */
 public class EventModelTest {
 
-    EventCenter<Integer> instance = new EventCenter();
+    NEventCenter<Integer> instance = new NEventCenter();
     private int value = 0;
 
     public void SetResult(int value) {
@@ -47,7 +47,7 @@ public class EventModelTest {
     }
 
     /**
-     * Test of RegeditListener method, of class EventCenter.
+     * Test of RegeditListener method, of class NEventCenter.
      */
     @Test
     public void testRegeditListener() {
@@ -55,9 +55,9 @@ public class EventModelTest {
 
         int Event = Math.round(100);
 
-        EventListener Linstance = new EventListener() {
+        NEventListener Linstance = new NEventListener() {
             @Override
-            public void recevieEvent(Event Event) {
+            public void recevieEvent(NEvent Event) {
                 SetResult((Integer)Event.GetEvent());
             }
         };
@@ -67,7 +67,7 @@ public class EventModelTest {
     }
 
     /**
-     * Test of RemoveListenner method, of class EventCenter.
+     * Test of RemoveListenner method, of class NEventCenter.
      */
     @Test
     public void testRemoveListenner() {
@@ -75,9 +75,9 @@ public class EventModelTest {
 
         int Event = 10;
 
-        EventListener Linstance = new EventListener() {
+        NEventListener Linstance = new NEventListener() {
             @Override
-            public void recevieEvent(Event Event) {
+            public void recevieEvent(NEvent Event) {
                 SetResult((Integer)Event.GetEvent());
             }
         };
