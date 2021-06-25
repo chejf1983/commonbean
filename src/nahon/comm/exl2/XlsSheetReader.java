@@ -46,7 +46,7 @@ public class XlsSheetReader implements AutoCloseable {
     public static XlsSheetReader ReadExcel(String fileName, int sheetIndex) throws Exception {
         return new XlsSheetReader(fileName, sheetIndex);
     }
-    
+
     // <editor-fold defaultstate="collapsed" desc="Table操作接口"> 
     public xlsTable_R FindeNextTable() throws Exception {
         //找到第一个有效数据
@@ -65,6 +65,7 @@ public class XlsSheetReader implements AutoCloseable {
     //再max_row * 3 的区域内，搜索第一个有数据的单元格位置
     private boolean ScanLefLine() {
         int c = 0;
+
         //先遍历列
         for (; c < 5; c++) {
             int r = 0;
@@ -72,17 +73,37 @@ public class XlsSheetReader implements AutoCloseable {
             for (; r < XlsConfig.max_row_inc * 2; r++) {
                 //判断excel是否为空
                 String value = this.readCell(p_column + c, p_row + r);
-                if (value != null && !value.isEmpty()) {
+//                if (value != null && !value.isEmpty()) {
+                if (isHead(value)) {
                     //不为空，找到数据，修正启动指针坐标
                     p_row += r;
                     p_column += c;
                     return true;
                 }
             }
+            p_row = 0;
         }
 
         return false;
     }
+
+    private boolean isHead(String value) {
+        //判断当前是否有值，没值返回空
+        if (value == null) {
+            return false;
+        }
+        //检查表头格式   :名字:长:宽:
+        if (!(value.startsWith(Table_Split) && value.endsWith(Table_Split))) {
+            return false;
+        }
+        //分解表头内容
+        String[] split = value.split(Table_Split);
+        if (split.length != 4) {
+            return false;
+        }
+        return true;
+    }
+
     //读取一张表
     private xlsTable_R ReadTable() throws Exception {
         xlsTable_R table = new xlsTable_R();
@@ -178,7 +199,7 @@ public class XlsSheetReader implements AutoCloseable {
         }
     }
     // </editor-fold>  
-    
+
     @Override
     public void close() throws Exception {
         if (this.readworkBook != null) {
