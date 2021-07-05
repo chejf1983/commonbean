@@ -6,6 +6,9 @@
 package nahon.comm.exl2;
 
 import java.io.File;
+import jxl.Cell;
+import jxl.CellType;
+import jxl.NumberCell;
 import jxl.Sheet;
 import jxl.Workbook;
 import static nahon.comm.exl2.XlsConfig.Table_Split;
@@ -51,7 +54,7 @@ public class XlsSheetReader implements AutoCloseable {
     public xlsTable_R FindeNextTable() throws Exception {
         //找到第一个有效数据
         if (this.ScanLefLine()) {
-            return this.ReadTable();
+             return this.ReadTable();
         } else {
             if (this.NewColumn() && this.ScanLefLine()) {
                 return this.ReadTable();
@@ -149,7 +152,14 @@ public class XlsSheetReader implements AutoCloseable {
 
     private String readCell(int column, int row) {
         try {
-            return readSheet.getCell(column, row).getContents();
+            Cell cell = readSheet.getCell(column, row);
+            if (cell.getType() == CellType.NUMBER) {
+                NumberCell numberCell = (NumberCell) cell;
+                Double numberValue = numberCell.getValue();
+                return numberValue.toString();
+            } else {
+                return cell.getContents();
+            }
         } catch (Exception ex) {
             return null;
         }
